@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaxBot — Global Tax Automation</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background-color: #09090b;
+            color: #f4f4f5;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #27272a;
+        }
+        .brand {
+            font-size: 24px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+        .sale-badge {
+            background-color: #27272a;
+            color: #fbbf24;
+            font-size: 12px;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            border: 1px solid #3f3f46;
+            text-transform: uppercase;
+        }
+        .hero {
+            padding: 60px 0 40px 0;
+        }
+        h1 {
+            font-size: 52px;
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            margin: 0 0 20px 0;
+            color: #ffffff;
+        }
+        .hero p {
+            font-size: 19px;
+            color: #a1a1aa;
+            max-width: 620px;
+            margin: 0 auto;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+        .pricing-section {
+            margin: 20px 0;
+        }
+        .card-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 24px;
+            margin-top: 30px;
+        }
+        .card {
+            background: #18181b;
+            border: 1px solid #27272a;
+            border-radius: 20px;
+            padding: 40px 24px;
+            width: 33%;
+            text-align: left;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            box-sizing: border-box;
+        }
+        .card.featured {
+            border: 2px solid #ffffff;
+            background-color: #18181b;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
+        }
+        .card-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #a1a1aa;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .price {
+            font-size: 42px;
+            font-weight: 900;
+            color: #ffffff;
+            margin: 15px 0;
+            letter-spacing: -1px;
+        }
+        .price span {
+            font-size: 14px;
+            color: #a1a1aa;
+            font-weight: 500;
+        }
+        .card-desc {
+            font-size: 13.5px;
+            color: #a1a1aa;
+            line-height: 1.4;
+            margin-bottom: 24px;
+            min-height: 40px;
+        }
+        .features {
+            border-top: 1px solid #27272a;
+            padding-top: 20px;
+            margin: 0;
+            padding-left: 20px;
+        }
+        .features li {
+            font-size: 13.5px;
+            color: #e4e4e7;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+        .waitlist-box {
+            background-color: #18181b;
+            color: #ffffff;
+            border-radius: 24px;
+            padding: 60px 40px;
+            margin: 60px 0;
+            border: 1px solid #27272a;
+            text-align: center;
+        }
+        .waitlist-box h2 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+        .waitlist-box p {
+            font-size: 16px;
+            color: #a1a1aa;
+            margin-bottom: 30px;
+        }
+        .form-area {
+            display: flex;
+            max-width: 440px;
+            margin: 0 auto;
+            gap: 12px;
+        }
+        .form-area input {
+            flex: 1;
+            padding: 14px;
+            border-radius: 8px;
+            border: 1px solid #3f3f46;
+            background-color: #09090b;
+            color: #ffffff;
+            outline: none;
+            font-size: 14px;
+        }
+        .form-area input:focus {
+            border-color: #ffffff;
+        }
+        .form-area button {
+            background-color: #ffffff;
+            color: #09090b;
+            border: none;
+            padding: 0 24px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+        .form-area button:hover {
+            background-color: #e4e4e7;
+        }
+        .sub-text {
+            font-size: 11px;
+            color: #71717a;
+            margin-top: 14px;
+        }
+        #form-status {
+            margin-top: 14px;
+            font-size: 14px;
+            font-weight: bold;
+            min-height: 20px;
+        }
+
+        /* ✨ Skrollēšanas animāciju stili */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .card-row {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .card {
+                width: 100%;
+            }
+            h1 {
+                font-size: 36px;
+            }
+            .form-area {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .form-area button {
+                padding: 14px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Header -->
+        <header>
+            <div class="brand">TaxBot</div>
+            <div class="sale-badge">⚡ December Early-Bird Sale Active</div>
+        </header>
+
+        <!-- Hero -->
+        <div class="hero">
+            <h1>Global E-Commerce Tax Automation Built for Speed.</h1>
+            <p>TaxBot automates all EU VAT liabilities, real-time B2B VIES validations, and instant tax reporting files. One-click native setup for enterprise stores.</p>
+        </div>
+                <!-- Pricing Grid (2. DAĻA) -->
+                <div class="pricing-section reveal">
+                    <div class="card-row">
+                        <!-- Tier 1 -->
+                        <div class="card">
+                            <div class="card-title">Tier 1</div>
+                            <div class="price">$49<span>/mo</span></div>
+                            <div class="card-desc">Perfect for small growing stores starting to expand globally.</div>
+                            <ul class="features">
+                                <li>Up to $10,000 monthly volume</li>
+                                <li>Automated EU VAT Calculation</li>
+                                <li>Standard CSV Reports</li>
+                            </ul>
+                        </div>
+        
+                        <!-- Tier 2 -->
+                        <div class="card">
+                            <div class="card-title">Tier 2</div>
+                            <div class="price">$199<span>/mo</span></div>
+                            <div class="card-desc">Designed for scaling merchants handling cross-border business.</div>
+                            <ul class="features">
+                                <li>Up to $100,000 monthly volume</li>
+                                <li>Real-time B2B VIES Protection</li>
+                                <li>Automated Local Submission Files</li>
+                            </ul>
+                        </div>
+        
+
+                                        <!-- Tier 3 (Best Value) -->
+                                        <div class="card featured">
+                                            <div class="card-title" style="color: #ffffff; font-weight: 800;">🏆 Tier 3 (Best Value)</div>
+                                            <div class="price">$399<span>/mo</span></div>
+                                            <div class="card-desc">Complete high-volume coverage with full structural automation perks.</div>
+                                            <ul class="features">
+                                                <li>Unlimited scale infrastructure</li>
+                                                <li>24/7 AI Customer Support</li>
+                                                <li>Direct Custom API Integrations</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                        <!-- Pre-Order / Waitlist Box -->
+                        <div class="waitlist-box reveal">
+                            <h2>Secure Priority Access</h2>
+                            <p>Enter your store email to secure your spot for the December 2026 launch and activate early partner perks.</p>
+                            
+                            <form id="taxbot-lead-form" class="form-area">
+                                <input 
+                                    type="email" 
+                                    id="client-email" 
+                                    placeholder="Enter your store email address" 
+                                    required 
+                                />
+                                <button type="submit">Join Waitlist</button>
+                            </form>
+                            <div id="form-status"></div>
+                            <div class="sub-text">Zero setup fees. Pre-orders are protected under our sub-second response SLA guarantee.</div>
+                        </div>
+                    </div>
+                
+                    <script>
+                        // 🚀 1. Gludas skrollēšanas animācijas dzinējs
+                        function revealElements() {
+                            const reveals = document.querySelectorAll(".reveal");
+                            for (let i = 0; i < reveals.length; i++) {
+                                const windowHeight = window.innerHeight;
+                                const elementTop = reveals[i].getBoundingClientRect().top;
+                                const elementVisible = 100;
+                                
+                                if (elementTop < windowHeight - elementVisible) {
+                                    reveals[i].classList.add("active");
+                                }
+                            }
+                        }
+                        
+                        window.addEventListener("scroll", revealElements);
+                        window.addEventListener("load", revealElements);
+                
+                        // 🎛️ 2. Vietējās JSON datubāzes pieslēgums (Async Fetch)
+                        document.getElementById('taxbot-lead-form').addEventListener('submit', async (e) => {
+                            e.preventDefault();
+                            const emailInput = document.getElementById('client-email');
+                            const statusText = document.getElementById('form-status');
+                            
+                            statusText.innerText = "Connecting to TaxBot core...";
+                            statusText.style.color = "#a1a1aa";
+                
+                            try {
+                                const response = await fetch('/save-email', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({ email: emailInput.value })
+                                });
+                
+                                if (response.ok) {
+                                    statusText.innerText = "✓ Success. Your store account is prioritized.";
+                                    statusText.style.color = "#4ade80"; // Premium gaiši zaļš
+                                    emailInput.value = "";
+                                } else {
+                                    throw new Error();
+                                }
+                            } catch (error) {
+                                statusText.innerText = "✕ Database connection error. Try again.";
+                                statusText.style.color = "#f87171"; // Premium maigi sarkans
+                            }
+                        });
+                    </script>
+                </body>
+                </html>
