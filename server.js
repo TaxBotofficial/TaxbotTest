@@ -37,9 +37,14 @@ app.post('/save-email', (req, res) => {
     return res.status(200).json({ success: true });
 });
 
-// GET Endpoint: Atver tavu jauno melni sarkano landing lapu no pareizās mapes
+// GET Endpoint: Atver tavu jauno, skaisto pelēk-balto landing lapu no pareizās mapes
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'taxbot', 'templates', 'landing.html'));
+});
+
+// 🔗 JAUNAIS GET ENDPOINT: Nosūta skripta failu (animācijas un formas dzinēju) uz mājaslapu
+app.get('/script.js', (req, res) => {
+    res.sendFile(path.join(__dirname, 'taxbot', 'templates', 'script.js'));
 });
 
 // GET Endpoint: Ja nākotnē vajadzēs atvērt dashboard
