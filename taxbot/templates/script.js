@@ -15,8 +15,8 @@ function revealElements() {
 window.addEventListener("scroll", revealElements);
 window.addEventListener("load", revealElements);
 
-// 🎛️ 2. Vietējās JSON datubāzes pieslēgums (Async Fetch)
-document.getElementById('taxbot-lead-form').addEventListener('submit', async (e) => {
+// 🎛️ 2. ZIBENSĀTRA INTEGRĀCIJA AR TAVU GOOGLE SHEETS TABULU
+document.getElementById('taxbot-lead-form').addEventListener('submit', function(e) {
     e.preventDefault();
     const emailInput = document.getElementById('client-email');
     const statusText = document.getElementById('form-status');
@@ -24,22 +24,24 @@ document.getElementById('taxbot-lead-form').addEventListener('submit', async (e)
     statusText.innerText = "Connecting to TaxBot core...";
     statusText.style.color = "#a1a1aa";
 
-    try {
-        const response = await fetch('/save-email', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: emailInput.value })
-        });
+    // Oficiālās Google formas tehniskās konfigurācijas
+    const GOOGLE_FORM_URL = "https://google.com"; 
+    const GOOGLE_ENTRY_ID = "entry.1838576156";
 
-        if (response.ok) {
-            statusText.innerText = "✓ Success. Your store account is prioritized.";
-            statusText.style.color = "#4ade80"; // Premium gaiši zaļš
-            emailInput.value = "";
-        } else {
-            throw new Error();
-        }
-    } catch (error) {
-        statusText.innerText = "✕ Database connection error. Try again.";
-        statusText.style.color = "#f87171"; // Premium maigi sarkans
-    }
+    const formData = new FormData();
+    formData.append(GOOGLE_ENTRY_ID, emailInput.value);
+
+    // Nosūta e-pastu pa taisno uz tavu Google izklājlapu
+    fetch(GOOGLE_FORM_URL, {
+        method: "POST",
+        mode: "no-cors",
+        body: formData
+    }).then(() => {
+        statusText.innerText = "✓ Success. Your store account is prioritized.";
+        statusText.style.color = "#4ade80"; // Premium maigi zaļš panākumu signāls
+        emailInput.value = ""; // Notīra ievades lauku
+    }).catch(() => {
+        statusText.innerText = "✕ Connection error. Try again.";
+        statusText.style.color = "#f87171";
+    });
 });
