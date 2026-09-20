@@ -188,7 +188,7 @@
             min-height: 20px;
         }
 
-        /* ✨ Skrollēšanas animāciju stili (Fade-in on scroll) */
+        /* ✨ Skrollēšanas animāciju stili */
         .reveal {
             opacity: 0;
             transform: translateY(40px);
@@ -294,21 +294,7 @@
         </div>
     </div>
 
-    <script>
-        // 🚀 1. Skrollēšanas animācijas loģika
-        function revealElements() {
-            const reveals = document.querySelectorAll(".reveal");
-            for (let i = 0; i < reveals.length; i++) {
-                const windowHeight = window.innerHeight;
-                const elementTop = reveals[i].getBoundingClientRect().top;
-                const elementVisible = 100;
-                
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
-                }
-            }
-        }
-        
-        window.addEventListener("scroll", revealElements);
-        window.addEventListener("load", revealElements);
-
+    <!-- 🔗 Pieslēdzam atsevišķo skripta failu, lai kods nekad nepārrautu lapu -->
+    <script src="/script.js"></script>
+</body>
+</html>
